@@ -2,9 +2,8 @@
 public class solution {
 
 	public static void towerOfHanoi(int disks, char source, char auxiliary, char destination) {
-		// Write your code here
         if(disks==0) return;
-        if(disks==1)
+        if(disks==1)    //base condition
         {
             System.out.println(source+" "+destination);
             return;
