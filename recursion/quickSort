@@ -1,0 +1,46 @@
+
+public class Solution {
+
+    public static void quickSort(int[] input) {
+        quickSort(input,0,input.length-1);
+    }
+    public static void quickSort(int[] input,int start,int end){
+        if(start>=end){  //base case
+            return;
+        }
+        int pos=partition(input,start,end);     //find the correct position of pivot element 
+                                                //in array
+        
+        quickSort(input,start,pos-1); //quicksort on left partition
+        quickSort(input,pos+1,end);    //quicksort on right partition
+    }
+    public static int partition(int[] input,int start,int end){
+        int pivot=input[start];
+        int i=start,j=end,count=0;
+        while(i<=end)     //find the count of smaller elements than pivot
+        {
+            if(input[i++]<pivot)
+                count++;
+        }
+        i=start;
+        input[start]=input[count+start];   
+        input[count+start]=pivot;          //set the pivot at its desired position
+        
+        while(i<(start+count)){             //ensure smaller elements at left
+            while(input[i]<pivot && i<j){    //and greater at right
+                i++;
+            }
+
+            while(input[j]>=pivot){
+                j--;
+            }
+            if(i<j)
+            {
+                int temp=input[i];
+                input[i]=input[j];
+                input[j]=temp;
+            }
+        }
+        return start+count;    //return position of pivot element
+    }
+}
