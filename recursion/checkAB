@@ -1,0 +1,23 @@
+public class Solution {
+
+    public static boolean checkAB(String input){
+        if(input.length()==0 || input.charAt(0)!='a') 
+        {
+            return false;
+        }
+        if(input.length()==1 && input.charAt(0)=='a'){
+            return true;
+        }
+        if(input.length()==3 && input.charAt(1)=='b' && input.charAt(2)=='b')
+        {
+            return true;
+        }
+        if(input.charAt(0)=='a' && input.charAt(1)=='a' ){
+            return checkAB(input.substring(1));
+        }
+        if(input.charAt(0)=='a' && input.charAt(1)=='b' && input.charAt(2)=='b'){
+            return checkAB(input.substring(3));
+        }
+       return false;
+    }
+}
