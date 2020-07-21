@@ -1,0 +1,33 @@
+public class solution {
+
+    // Return a 2D array that contains all the subsets
+    public static int[][] subsets(int input[]) {
+        return subsets(input,0,input.length-1);
+    }
+    public static int[][] subsets(int input[],int start,int end){
+        if(start>end){             //base case
+            int[][] sub={{}};
+            return sub;
+        }
+        int[][] recSub=subsets(input,start+1,end);   
+        int[][] result=new int[recSub.length*2][];   //creting rray to store subsets
+        int k=0;
+        for(int i=0;i<recSub.length;i++){            
+            result[i]=new int[recSub[i].length];
+            for(int j=0;j<recSub[i].length;j++)
+            {
+                result[i][j]=recSub[i][j];  //copying  previious subsets
+            }
+        }
+        for(int i=recSub.length;i<result.length;i++){    //mapping  
+            result[i]=new int[recSub[i-recSub.length].length+1];
+            result[i][0]=input[start];
+            for(int j=1;j<result[i].length;j++)
+            {
+                result[i][j]=recSub[i-recSub.length][j-1];
+
+            }
+        }
+        return result;
+    }
+}
