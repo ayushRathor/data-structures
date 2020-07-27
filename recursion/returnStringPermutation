@@ -1,0 +1,22 @@
+public class solution {
+    
+    public static String[] permutationOfString(String input){
+        
+        if(input.length()==0)
+        {
+            String[] baseAns={""};
+            return baseAns;
+        }
+        int k=0;
+        String[] smallOutput=permutationOfString(input.substring(1));
+        String[] output=new String[input.length()*smallOutput.length];
+        for(int i=0;i<smallOutput.length;i++){
+            String currString=smallOutput[i];
+            for(int j=0;j<=currString.length();j++){
+                output[k++]=currString.substring(0,j)+input.charAt(0)+currString.substring(j);
+            }
+        }
+        return output;
+    }
+	
+}
