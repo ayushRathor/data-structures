@@ -1,0 +1,65 @@
+
+public class Solution {
+
+    public static LinkedListNode<Integer> mergeSort(LinkedListNode<Integer> head) {
+        if(head==null || head.next==null)
+        {
+            return head;
+        }
+        LinkedListNode<Integer> rightHead=getRightList(head);
+        
+        LinkedListNode<Integer> l=mergeSort(head);
+        LinkedListNode<Integer> r=mergeSort(rightHead);
+        return merge(l,r);
+    }
+    
+    public static LinkedListNode<Integer> merge(LinkedListNode<Integer> l,LinkedListNode<Integer> r){
+        
+        LinkedListNode<Integer> head=null;
+        LinkedListNode<Integer> tail=null;
+        if(l.data<r.data)
+        {
+            head=l;
+            tail=l;
+            l=l.next;
+        }
+        else{
+            head=r;
+            tail=r;
+            r=r.next;
+        }
+        while(l!=null && r!=null){
+            if(l.data<r.data){
+                tail.next=l;
+                tail=l;
+                l=l.next;
+            }
+            else{
+                tail.next=r;
+                tail=r;
+                r=r.next;
+            }
+        }
+        if(l==null){
+            tail.next=r;
+        }
+        if(r==null){
+            tail.next=l;
+        }
+        
+        return head;
+    }
+    public static LinkedListNode<Integer> getRightList(LinkedListNode<Integer> h){
+        LinkedListNode<Integer> slow=h;
+        LinkedListNode<Integer> fast=h;
+        LinkedListNode<Integer> rightHead=null;
+        while(fast.next!=null && fast.next.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        rightHead=slow.next;
+        slow.next=null;
+        return rightHead;
+    }
+
+}
