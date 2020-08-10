@@ -1,0 +1,73 @@
+
+/*
+class LinkedListNode<T> {
+	public T data;
+	public LinkedListNode<T> next;
+
+	public LinkedListNode(T data) {
+		this.setData(data);
+		this.next = null;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
+	}
+
+}
+* */
+class EndNodes{
+    LinkedListNode<Integer> h;
+    LinkedListNode<Integer> t;
+    EndNodes(LinkedListNode<Integer> h,LinkedListNode<Integer> t)
+    {
+        this.h=h;
+        this.t=t;
+    }
+}
+public class Solution {
+	public static LinkedListNode<Integer> kReverse(LinkedListNode<Integer> head, int k) {
+        if(head==null ||  head.next==null){
+            return head;
+        }
+        
+        LinkedListNode<Integer> h1=head;
+        LinkedListNode<Integer> t1=null;
+        int count=1;
+       while(count<k&& head.next!=null)
+        {
+           head=head.next;
+           count++;
+        }
+        LinkedListNode<Integer> h2=head.next;
+        head.next=null;
+        EndNodes endNodes=reverse(h1);
+        endNodes.t.next=kReverse(h2,k);
+        return endNodes.h;
+    }
+    public static EndNodes reverse(LinkedListNode<Integer> h)
+    {
+        if(h==null)
+        {
+            return new EndNodes(h,h);
+        }
+        if(h.next==null){
+            return new EndNodes(h,h);
+        }
+         LinkedListNode<Integer> prev=null;
+        LinkedListNode<Integer> curr=h;
+        LinkedListNode<Integer> next=null;
+        while(curr!=null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr =next;
+        }
+        curr=prev;
+        return new EndNodes(curr,h);
+    }
+    
+}
