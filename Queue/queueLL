@@ -70,6 +70,7 @@ public class Queue<T> {
             rear.next=newNode;
             rear=rear.next;
         }
+        size++;
 	}
 
 	public int size() {
@@ -81,12 +82,13 @@ public class Queue<T> {
 	}
 
 	public T dequeue() throws QueueEmptyException {
-        if(front==null)
+        if(size==0)
         {
             throw new QueueEmptyException();
         }
         T data=front.data;
         front=front.next;
+        size--;
         return data;
 	}
 
