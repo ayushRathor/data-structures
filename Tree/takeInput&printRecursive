@@ -1,0 +1,57 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+
+class TreeNode<T>{
+    T data;
+    ArrayList<TreeNode<T>> children;
+    TreeNode(T el)
+    {
+        data=el;
+        children=new ArrayList();
+    }
+}
+public class Main
+{
+    
+    public static TreeNode takeInput()
+    {
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Enter next node:");
+        int data=sc.nextInt();
+        TreeNode<Integer> root=new TreeNode(data);
+        System.out.println("Enter no of children:");
+        int noOfChilds=sc.nextInt();
+        for(int i=0;i<noOfChilds;i++)
+        {
+            TreeNode<Integer> smallRoot=takeInput();
+            root.children.add(smallRoot);
+        }
+        return root;
+    }
+    
+    
+    public static void printTree(TreeNode<Integer> root)
+    {
+        String s=root.data+":";
+        for(int i=0;i<root.children.size();i++)
+        {
+            s=s+root.children.get(i).data+",";
+        }
+        System.out.println(s);
+        for(int i=0;i<root.children.size();i++)
+        {
+            printTree(root.children.get(i));
+        }
+    }
+	public static void main(String[] args) {
+		TreeNode root=takeInput();
+		printTree(root);
+	}
+}
