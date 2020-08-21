@@ -1,0 +1,49 @@
+import java.util.*;
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+	
+	
+	
+	public static void printLevelWise(TreeNode<Integer> root){
+		/* Your class should be named Solution 
+ 		 * Don't write main(). 
+		 * Don't read input, it is passed as function argument. 
+		 * Print output and don't return it. 
+		 * Taking input is handled automatically. 
+		 */
+        Queue<TreeNode<Integer>>  queue=new LinkedList();
+        queue.add(root);
+        int l=0;
+        System.out.println(root.data);
+        while(!queue.isEmpty()){
+            if(l==0)
+            {
+                l=queue.size();
+            }
+            
+            TreeNode<Integer> front=queue.poll();
+            
+            for(int i=0;i<front.children.size();i++)
+            {
+                System.out.print(front.children.get(i).data+" ");
+                queue.add(front.children.get(i));
+            }
+            l--;
+            if(l==0)
+            System.out.println();
+        }
+
+	}
+		
+}
