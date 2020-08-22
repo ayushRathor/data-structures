@@ -1,0 +1,78 @@
+
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+	
+	
+	public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+		// Write your code here
+        if(root==null)
+        {
+            return null;
+        }
+        int sum=root.data;
+        TreeNode<Integer> result=root;
+        for(int i=0;i<root.children.size();i++)
+        {
+            sum+=root.children.get(i).data;
+        }
+        for(int i=0;i<root.children.size();i++)
+        {
+            
+            TreeNode<Integer> temp=maxSumNode(root.children.get(i));
+            int sum2=temp.data;
+            for(int j=0;j<temp.children.size();j++)
+            {
+                sum2+=temp.children.get(j).data;
+            }
+            if(sum2>sum)
+            {
+                result=temp;
+                sum=sum2;
+            }
+        }
+        // System.out.println(result.data);
+        return result;
+	}
+    
+    // public static NodeSum maxSumNode(TreeNode<Integer> root)
+    // {
+    //     int childrenSum=root.data;
+    //     for(int i=0;root.children.size();i++)
+    //     {
+    //         childrenSum+=root.children.get(i).data;
+    //     }
+    //     NodeSum obj=new NodeSum(root,childrenSum);
+    //     for(int i=0;root.children.size();i++)
+    //     {
+    //         NodeSum temp=maxSumNode(root.children.get(i));
+    //         if(obj.sum<temp.sum){
+    //             obj=temp;
+    //         }
+    //     }
+    //     return obj;
+    // }
+    
+    
+	
+		
+}
+
+// class NodeSum{
+//     int sum;
+//     TreeNode<Integer> root;
+//     NodeSum(TreeNode<Integer> root,int sum){
+//         this.sum=sum;
+//         this.root=root;
+//     }
+// }
