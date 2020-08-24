@@ -1,0 +1,75 @@
+import java.util.*;
+
+
+public class Solution {
+
+    /*	Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	 */
+
+    /* class Node<T> {
+		T data;
+		Node<T> next;
+		Node(T data){
+			this.data = data;
+		}
+	}
+*/
+    public static ArrayList<Node<BinaryTreeNode<Integer>>> LLForEachLevel(BinaryTreeNode<Integer> root) {
+
+        // Write your code here
+        if(root==null)
+        {
+            return null;
+        }
+        Queue<BinaryTreeNode<Integer>> q=new LinkedList();
+        ArrayList<Node<BinaryTreeNode<Integer>>> list=new ArrayList();
+        Node<BinaryTreeNode<Integer>> h=null;
+        Node<BinaryTreeNode<Integer>> t=null;
+        int l=0;
+        q.add(root);
+        while(!q.isEmpty()){
+            if(l==0)
+            {   h=null;
+                t=null;
+                l=q.size();
+            }
+            BinaryTreeNode<Integer> front=q.poll();
+            if(h==null)
+            {
+                Node<BinaryTreeNode<Integer>> node=new Node(front);
+                h=node;
+                t=node;
+                list.add(h);
+            }
+            else if(h!=null)
+            {
+                Node<BinaryTreeNode<Integer>> node=new Node(front);
+                t.next=node;
+                t=t.next;
+            }
+            if(front.left!=null)
+            {
+                q.add(front.left);
+            }
+            if(front.right!=null)
+            {
+                q.add(front.right);
+            }
+            l--;
+
+        }
+        return  list;
+    }
+
+
+}
