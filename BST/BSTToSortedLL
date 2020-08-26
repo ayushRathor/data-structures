@@ -1,0 +1,89 @@
+public class Solution {
+
+/*	Binary Tree Node class 
+ * 
+ * 	class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+
+/* LinkedList Node Class
+*
+*	
+class LinkedListNode<T> {
+	T data;
+	LinkedListNode<T> next;
+	
+	public LinkedListNode(T data) {
+		this.data = data;
+	}
+}
+*/
+
+	public static LinkedListNode<Integer> BSTToSortedLL(BinaryTreeNode<Integer> root){
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+		*/
+        Pair<LinkedListNode<Integer>> p=helper(root);
+        return p.head;
+		
+	}
+    public static Pair<LinkedListNode<Integer>> helper(BinaryTreeNode<Integer> root)
+    {
+        if(root==null)
+        {
+            Pair<LinkedListNode<Integer>> p=new Pair();
+            p.head=null;
+            p.tail=null;
+            return p;
+        }
+        
+        Pair<LinkedListNode<Integer>> leftList=helper(root.left);
+        Pair<LinkedListNode<Integer>> rightList=helper(root.right);
+        LinkedListNode<Integer>  midNode=new LinkedListNode(root.data);
+        Pair<LinkedListNode<Integer>> newPair=new Pair();
+        if(leftList.tail==null && rightList.head==null)
+        {
+            newPair.head=midNode;
+            newPair.tail=midNode;
+            return newPair;
+        }
+        if(leftList.head==null)
+        {
+            
+            midNode.next=rightList.head;
+            newPair.head=midNode;
+            newPair.tail=rightList.tail;
+            return newPair;
+        }
+        if(rightList.head==null)
+        {
+            leftList.tail.next=midNode;
+            newPair.head=leftList.head;
+            newPair.tail=midNode;
+            return newPair;
+        }
+        
+        
+        
+        midNode.next=rightList.head;
+        leftList.tail.next=midNode;
+        newPair.head=leftList.head;
+        newPair.tail=rightList.tail;
+        return newPair;
+    }
+    
+}	
+class Pair<T>{
+    T head;
+    T tail;
+}
