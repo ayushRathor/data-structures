@@ -1,0 +1,149 @@
+
+
+public class Solution {
+
+    /*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+
+
+
+    public static TreeNode<Integer> findSecondLargest(TreeNode<Integer> root){
+        // Write your code here
+        return helper(root).max2;
+
+    }
+    public static Pair<TreeNode<Integer>> helper(TreeNode<Integer> root)
+    {
+        if(root==null)
+        {
+            return null;
+        }
+        Pair<TreeNode<Integer>> ans=new Pair();
+        ans.max=root;
+        ans.max2=null;
+        Pair<TreeNode<Integer>> temp=new Pair();
+        for(int i=0;i<root.children.size();i++)
+        {
+            // System.out.println(root.children.get(i).data+"----rooot----");
+            temp=helper(root.children.get(i));
+                if(ans.max.data==temp.max.data){
+                    if(ans.max2!=null && temp.max2!=null)
+                    {
+                        if(ans.max2.data<temp.max2.data)
+                        {
+                            ans.max2=temp.max2;
+                        }
+                    }
+                    if(ans.max2==null)
+                    {
+                        ans.max2=temp.max2;
+                    }
+                }
+           else if(ans.max2!=null && temp.max2!=null)
+            {
+                TreeNode<Integer> newMax;
+                if(ans.max.data<temp.max.data)
+                {
+                    newMax=temp.max;
+                    if(ans.max.data<temp.max2.data)
+                    {
+                        ans.max2=temp.max2;
+                    }
+                    else
+                    {
+                        ans.max2=ans.max;
+                    }
+                }
+                else
+                {
+                    newMax=ans.max;
+                    if(temp.max.data>ans.max2.data)
+                    {
+                        ans.max2=temp.max;
+                    }
+                    else
+                    {
+                        ans.max2=ans.max2;
+                    }
+                }
+
+                ans.max=newMax;
+            }
+            else if(ans.max2==null && temp.max2==null)
+            {
+                // int newMax2;
+                TreeNode<Integer> newMax;
+                if(ans.max.data<temp.max.data)
+                {
+                    newMax=temp.max;
+                    ans.max2=ans.max;
+                }
+                else
+                {
+                    newMax=ans.max;
+                    ans.max2=temp.max;
+                }
+
+                ans.max=newMax;
+            }
+
+            else if(ans.max2==null)
+            {
+                TreeNode<Integer> newMax;
+                if(ans.max.data<temp.max.data)
+                {
+                    newMax=temp.max;
+                    if(ans.max.data>temp.max2.data)
+                    {
+                        ans.max2=ans.max;
+                    }
+                    else{
+                        ans.max2=temp.max2;
+                    }
+                }
+                else{
+                    newMax=ans.max;
+                    ans.max2=temp.max;
+                }
+                ans.max=newMax;
+            }
+            else if(temp.max2==null)
+            {
+                TreeNode<Integer> newMax;
+                if(ans.max.data<temp.max.data)
+                {
+                    newMax=temp.max;
+                    ans.max2=ans.max;
+                }
+                else{
+                    newMax=ans.max;
+                    if(temp.max.data>ans.max2.data)
+                    {
+                        ans.max2=temp.max;
+                    }
+                    else{
+                        ans.max2=ans.max2;
+                    }
+                }
+                ans.max=newMax;
+            }
+        }
+        return ans;
+
+    }
+
+}
+class Pair<T>{
+    T max;
+    T max2;
+}
+
