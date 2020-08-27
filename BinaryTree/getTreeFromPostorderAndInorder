@@ -1,0 +1,61 @@
+public class Solution {
+
+    /*	Binary Tree Node class
+	 * 
+	 * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	 */
+
+    public static BinaryTreeNode<Integer> getTreeFromPostorderAndInorder(int[] post,
+                                                                         int[] in){
+
+        // Write your code here
+
+        return getTreeFromPostorderAndInorder(post,in,0,post.length-1,0,in.length-1);
+    }
+
+    public static BinaryTreeNode<Integer> getTreeFromPostorderAndInorder(int[] post,int[] in,int postS,int postE,int inS,int inE){
+        if(postE<0 || inS>inE)
+        {
+            return null;
+        }
+        int index=-1;
+        BinaryTreeNode<Integer>  root=new BinaryTreeNode(post[postE]);
+        for(int i=0;i<=inE;i++)
+        {
+            if(post[postE]==in[i])
+            {
+                index=i;
+                break;
+            }
+        }
+
+        int lpostS=postS;
+        int linS=inS;
+        int linE=index-1;
+        int rinE=inE;
+        int rinS=index+1;
+        int rpostS=postE-(rinE-rinS+1);
+        int lpostE=rpostS-1;
+        int rpostE=postE-1;
+
+        BinaryTreeNode<Integer> r=getTreeFromPostorderAndInorder(post,in,rpostS,rpostE,rinS,rinE);
+        BinaryTreeNode<Integer> l=getTreeFromPostorderAndInorder(post,in,lpostS,lpostE,linS,linE);
+        root.right=r;
+        root.left=l;
+        return root;
+
+    }
+
+
+
+
+
+}
