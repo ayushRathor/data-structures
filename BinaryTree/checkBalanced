@@ -1,0 +1,56 @@
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+	
+	public static boolean checkBalanced(BinaryTreeNode<Integer> root){
+		
+		// Write your code here
+        
+		return helper(root).isBalanced;
+	}
+
+    public static Pair<Boolean,Integer> helper(BinaryTreeNode<Integer> root){
+        if(root==null)
+        {
+            Pair<Boolean,Integer> ans=new Pair();
+            ans.isBalanced=true;
+            ans.depth=0;
+            return ans;
+        }
+        Pair<Boolean,Integer> l=helper(root.left);
+        Pair<Boolean,Integer> r=helper(root.right);
+        Pair<Boolean,Integer> ans=new Pair();
+        ans.depth=Math.max(l.depth,r.depth)+1;
+        if(!l.isBalanced || !r.isBalanced)
+        {
+            ans.isBalanced=false;
+            return ans;
+        }
+        
+        int t=Math.abs(l.depth-r.depth);
+        if(t<=1)
+        {
+            ans.isBalanced=true;
+        }
+        else {
+            ans.isBalanced=false;
+        }
+        return ans;
+    }
+	
+}
+class Pair<T,V>{
+    T isBalanced;
+    V depth;
+}
