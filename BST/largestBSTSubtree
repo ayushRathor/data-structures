@@ -1,0 +1,62 @@
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+    }
+*/
+	
+	public static int largestBSTSubtree(BinaryTreeNode<Integer> root) {
+		// Write your code here
+		return isBST2(root).first.second;
+	}
+
+    public static Pair<Pair<Boolean,Integer>,Pair<Integer,Integer>> isBST2(BinaryTreeNode<Integer> root){
+        if(root==null){
+            Pair<Pair<Boolean,Integer>,Pair<Integer,Integer>>  output=new Pair();
+            output.first=new Pair();
+            output.first.first=true;
+            output.first.second=0;
+            output.second=new Pair<Integer,Integer>();
+            output.second.first=Integer.MAX_VALUE;
+            output.second.second=Integer.MIN_VALUE;
+            return output;
+        }
+        
+        Pair<Pair<Boolean,Integer>,Pair<Integer,Integer>> l=isBST2(root.left);
+        Pair<Pair<Boolean,Integer>,Pair<Integer,Integer>> r=isBST2(root.right);
+        int min=Math.min(root.data,Math.min(l.second.first,r.second.first));
+        int max=Math.max(root.data,Math.max(l.second.second,r.second.second));
+        Boolean isBST=(l.second.second<root.data) && (r.second.first>=root.data)
+            && (r.first.first) && l.first.first;
+        int height;
+        // System.out.println((r.second.first>=root.data)+"--"+r.second.first,);
+        if(isBST)
+        {
+          height=1+Math.max(l.first.second,r.first.second);
+        }
+        else
+        {
+            height=Math.max(l.first.second,r.first.second);
+        }
+        Pair<Pair<Boolean,Integer>,Pair<Integer,Integer>> output=new Pair();
+        output.first=new Pair();
+        output.first.first=isBST;
+        output.first.second=height;
+        output.second=new Pair<Integer,Integer>();
+        output.second.first=min;
+        output.second.second=max;
+        return output;
+    }
+}
+class Pair<T,V>{
+    T first;
+    V second;
+}
