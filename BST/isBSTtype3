@@ -1,0 +1,45 @@
+public class Solution {
+
+    public static boolean isBST(BinaryTreeNode<Integer> root) {
+        /* Your class should be named Solution
+		* Don't write main().
+		* Don't read input, it is passed as function argument.
+		* Return output and don't print it.
+		* Taking input and printing output is handled automatically.
+		*/
+        if(root==null)
+        {
+            return true;
+        }
+        return isBST2(root).first;
+    }
+
+    public static Pair<Boolean,Pair<Integer,Integer>> isBST2(BinaryTreeNode<Integer> root){
+        if(root==null){
+            Pair<Boolean,Pair<Integer,Integer>> output=new Pair();
+            output.first=true;
+            output.second=new Pair<Integer,Integer>();
+            output.second.first=Integer.MAX_VALUE;
+            output.second.second=Integer.MIN_VALUE;
+            return output;
+        }
+        Pair<Boolean,Pair<Integer,Integer>> l=isBST2(root.left);
+        Pair<Boolean,Pair<Integer,Integer>> r=isBST2(root.right);
+        int min=Math.min(root.data,Math.min(l.second.first,r.second.first));
+        int max=Math.max(root.data,Math.max(l.second.second,r.second.second));
+        Boolean isBST=(l.second.second<root.data) && (r.second.first>=root.data)
+            && (r.first) &&l.first;
+        Pair<Boolean,Pair<Integer,Integer>> output=new Pair();
+        output.first=isBST;
+        output.second=new Pair<Integer,Integer>();
+        output.second.first=min;
+        output.second.second=max;
+        return output;
+
+    }
+  
+}
+class Pair<T,V>{
+    T first;
+    V second;
+}
