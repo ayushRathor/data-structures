@@ -1,0 +1,43 @@
+public class Solution {
+
+/*	Binary Tree Node class
+ * 
+ * class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+	*/
+	
+	public static void replaceWithLargerNodesSum(BinaryTreeNode<Integer> root) {
+		// Write your code here
+		if(root==null)
+        {
+            return;
+        }
+        Sum s=new Sum();
+        helper(root,s);
+	}
+    public static void   helper(BinaryTreeNode<Integer> root,Sum s){
+        if(root==null)
+        {
+            return ;
+        }
+        // int r=helper(root.right,s);
+        // root.data=root.data+r;
+        // s=root.data;
+        // int s=helper(root.left,s);
+        // return s;  
+        helper(root.right,s);
+        s.s=s.s+root.data;
+        root.data=s.s;
+        helper(root.left,s);
+    }
+}
+class Sum{
+    int s=0;
+}
