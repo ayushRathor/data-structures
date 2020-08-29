@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Solution {
+	public static void PairSum(int[] input, int size) {
+		
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Print the desired output and don't return anything.
+	 	 * Taking input is handled automatically.
+		 */
+        HashMap<Integer,Integer> map=new HashMap();
+        for(int i:input)
+        {
+            if(map.containsKey(-i))
+            {
+                int f=map.get(-i);
+                while(f-->0)
+                {
+                    System.out.println(Math.min(i,-i)+" "+Math.max(i,-i));
+                }
+                
+            }
+            if(map.containsKey(i)){
+                map.put(i,map.get(i)+1);
+            }
+            else{
+                map.put(i,1);
+            }
+        }
+	}
+}
