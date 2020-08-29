@@ -1,0 +1,47 @@
+import java.util.*;
+public class Solution {
+
+    public static void findPairsDifferenceK(int[] input, int k){
+        HashMap<Integer,Integer> map=new HashMap();
+        for(int el:input)
+        {
+            // int second=el>=k?el-k:k+el;
+            if(k==0)
+            {
+                if(map.containsKey(el-k))
+                {
+                    int f=map.get(el-k);
+                    while(f-->0)
+                    {
+                        System.out.println(Math.min(el-k,el)+" "+Math.max(el-k,el));
+                    }
+                }
+            }
+            else {
+                if(map.containsKey(el-k))
+                {
+                    int f=map.get(el-k);
+                    while(f-->0)
+                    {
+                        System.out.println(Math.min(el-k,el)+" "+Math.max(el-k,el));
+                    }
+                }
+                if(map.containsKey(k+el))
+                {
+                    int f=map.get(k+el);
+                    while(f-->0)
+                    {
+                        System.out.println(Math.min(k+el,el)+" "+Math.max(k+el,el));
+                    }
+                }
+            }
+            if(map.containsKey(el))
+            {
+                map.put(el,map.get(el)+1);
+            }
+            else{
+                map.put(el,1);
+            }
+        }
+    }
+}
