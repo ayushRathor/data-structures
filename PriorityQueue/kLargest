@@ -11,15 +11,19 @@ public class Solution {
 		*/
 		PriorityQueue<Integer> pq=new PriorityQueue();
         ArrayList<Integer> output=new ArrayList();
-        for(int el:input)
-        {
-            pq.add(el);
+        int i=0;
+        for (;i<k;i++){
+            pq.add(input[i]);
         }
-        for(int i=0;i<input.length-k;i++)
+        for(;i<input.length;i++)
         {
-            pq.remove();
+            if(input[i]>pq.peek())
+            {
+                pq.remove();
+                pq.add(input[i]);
+            }
         }
-        for(int i=0;i<k;i++)
+        while(!pq.isEmpty())
         {
             output.add(pq.remove());
         }
