@@ -1,0 +1,79 @@
+public class Solution {
+
+	public static void inplaceHeapSort(int arr[]) {
+		/* Your class should be named Solution
+		* Don't write main().
+		* Don't read input, it is passed as function argument.
+		* Change in the given input itself.
+		* Taking input and printing output is handled automatically.
+		*/
+		int hs=0;
+        for(int i=0;i<arr.length;i++)
+        {
+            arr[hs]=arr[i];
+            int ci=hs;
+            int pi=(hs-1)/2;
+            while(ci>0){
+                if(arr[pi]>arr[ci])
+                {
+                    int temp=arr[pi];
+                    arr[pi]=arr[ci];
+                    arr[ci]=temp;
+                    ci=pi;
+                    pi=(ci-1)/2;
+                }
+                else {
+                    break;
+                }
+            }
+            hs++;
+        }
+         // for(int j:arr)
+         //    {
+         //        System.out.print(j);
+         //    }
+            // System.out.println(hs);
+        for(int i=0;i<arr.length;i++)
+        {
+            int removed=arr[0];
+            arr[0]=arr[hs-1];
+            arr[hs-1]=removed;
+            int pi=0;
+            int lci=1;
+            int rci=2;
+            int minIndex=pi;
+            hs--;
+            while(lci<hs)
+            {
+                if(arr[lci]<arr[pi])
+                {
+                    minIndex=lci;
+                }
+                if(rci<hs&& arr[rci] <arr[minIndex])
+                {
+                    minIndex=rci;
+                }
+                if(minIndex==pi)
+                {
+                    break;
+                }
+               else{
+                    // int min=Math.min(arr[lci],arr[rci]);
+                    // int minIndex=min==arr[lci]?lci:rci;
+                   int temp=arr[minIndex];
+                    arr[minIndex]=arr[pi];
+                    arr[pi]=temp;
+                    pi=minIndex;
+                    lci=2*pi+1;
+                    rci=2*pi+2;
+                }
+            }
+            // hs--;
+            // for(int j:arr)
+            // {
+            //     System.out.print(j);
+            // }
+            // System.out.println();
+        }
+	}
+}
