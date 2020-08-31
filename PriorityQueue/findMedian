@@ -1,0 +1,43 @@
+import java.util.*;
+public class Solution {
+
+	public static void findMedian(int arr[])  {
+		//Your code goes here
+        PriorityQueue<Integer> maxHeap=new PriorityQueue(Collections.reverseOrder());
+        PriorityQueue<Integer> minHeap=new PriorityQueue();
+        maxHeap.add(arr[0]);
+        System.out.println(maxHeap.peek());
+        for(int i=1;i<arr.length;i++)
+        {
+            if(arr[i]<maxHeap.peek())
+            {
+                maxHeap.add(arr[i]);
+            }
+            else{
+                minHeap.add(arr[i]);
+            }
+            if(maxHeap.size()-minHeap.size()>1)
+            {
+                minHeap.add(maxHeap.poll());
+            }
+            else if(minHeap.size()-maxHeap.size()>1){
+                maxHeap.add(minHeap.poll());
+            }
+            // if((maxHeap.size()%2==0 && minHeap.size()%2==0)||(maxHeap.size()%2!=0 && minHeap.size()%2!=0))
+            if(minHeap.size()==maxHeap.size())
+            {
+                System.out.println((maxHeap.peek()+minHeap.peek())/2);
+            }
+            else {
+                if(maxHeap.size()>minHeap.size())
+                {
+                    System.out.println(maxHeap.peek());
+                }
+                else{
+                    System.out.println(minHeap.peek());
+                }
+            }
+        }
+	}
+
+}
