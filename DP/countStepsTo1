@@ -1,0 +1,46 @@
+
+
+
+public class Solution {
+	
+	public static int countStepsTo1(int n){
+		
+	/* Your class should be named Solution.
+	 * Don't write main() function.
+	 * Don't read input, it is passed as function argument.
+	 * Return output and don't print it.
+	 * Taking input and printing output is handled automatically.
+	 */
+        
+        int[] storage=new int[n+1];
+        for(int i=0;i<storage.length;i++){
+            storage[i]=-1;
+        }
+        storage[1]=0;
+        storage[2]=1;
+        storage[3]=1;
+        for(int i=4;i<storage.length;i++)
+        {
+            int div1=0,div2=0;
+            if(i%2==0)
+            {
+                div1=1+storage[i/2];
+            }
+            else if(i%2!=0)
+            {
+                div1=1+storage[i-1];
+            }
+            if(i%3==0)
+            {
+                div2=1+storage[i/3];
+            }
+            else if(i%3!=0)
+            {
+                div2=1+storage[i-1];
+            }
+            storage[i]=Math.min(div1,div2);
+        }
+        
+       return  storage[n];
+	}
+}
