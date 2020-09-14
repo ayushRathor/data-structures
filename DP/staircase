@@ -1,0 +1,30 @@
+
+public class Solution {
+
+
+    public static long staircase(int n){
+
+        /* Your class should be named Solution.
+	 * Don't write main() function.
+	 * Don't read input, it is passed as function argument.
+	 * Return output and don't print it.
+	 * Taking input and printing output is handled automatically.
+	 */
+
+        if(n<=1)
+        {
+            return 1;
+        }
+        long[] storage=new long[n+1];
+        storage[0]=1;
+        storage[1]=1;
+        storage[2]=2;
+        // storage[3]=4;
+        for(int i=3;i<storage.length;i++)
+        {
+            storage[i]=storage[i-1]+storage[i-2]+storage[i-3];
+        }
+        return storage[n];
+    }
+
+}
