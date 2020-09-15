@@ -1,0 +1,19 @@
+
+public class Solution {
+
+    public static int minCount(int n) {
+        // Write your code here
+
+        if (n <= 0) {
+            return 0;
+        }
+        int min=minCount(n-1*1);
+        for(int i=2;i<=Math.sqrt(n);i++)
+        {
+            min=Math.min(min,minCount(n-i*i));
+        }
+        return min+1;
+    }
+
+
+}
