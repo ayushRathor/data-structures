@@ -1,0 +1,28 @@
+
+public class Solution {
+
+    public static int minCount(int n) {
+        // Write your code here
+
+        int[] storage=new int[n+1];
+        return minCount(n,storage);
+    }
+    public static int minCount(int n,int[] storage)
+    {
+        if(n<=0){
+            return 0;
+        }
+        if(storage[n]!=0)
+        {
+            return storage[n];
+        }
+
+        int min=minCount(n-1*1, storage);
+        for(int i=2;i<=Math.sqrt(n);i++)
+        {
+            min=Math.min(min,minCount(n-i*i, storage));
+        }
+        storage[n]=min+1;
+        return storage[n];
+    }
+}
