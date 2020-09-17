@@ -1,0 +1,23 @@
+
+public class Solution {
+
+	public static int balancedTreesOfHeightH(int height){
+		// Write your code here
+
+        int dp[]=new int[height+1];
+        dp[0]=1;
+        dp[1]=1;
+        int mode=(int)Math.pow(10,9)+7;
+        for(int i=2;i<height+1;i++)
+        {
+            int x=dp[i-1];
+            int y=dp[i-2];
+            long xLong=(long)x*y*2;       
+            long yLong=(long)x*x;
+            int value1=(int)(xLong%mode);
+            int value2=(int)(yLong%mode);
+            dp[i]=value1+value2;
+        }
+        return dp[height];
+	}
+}
