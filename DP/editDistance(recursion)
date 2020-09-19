@@ -1,0 +1,32 @@
+
+public class Solution {
+    public static int editDistance(String s1, String s2){		
+        //Your class should be named Solution
+        //* Don't write main().
+        //* Don't read input, it is passed as function argument.
+        //* Return output and don't print it.
+
+
+        //write your code here
+        return editDistanceR(s1,s2);
+    }
+
+    public static int editDistanceR(String s1,String s2){
+        if(s1.length()==0 || s2.length()==0)
+        {
+            return Math.max(s1.length(),s2.length());
+        }
+
+        if(s1.charAt(0)==s2.charAt(0))
+        {
+            return editDistanceR(s1.substring(1),s2.substring(1));
+        }
+        else{
+            int insert=editDistanceR(s1.substring(1),s2);
+            int delete=editDistanceR(s1,s2.substring(1));
+            int sub=editDistanceR(s1.substring(1),s2.substring(1));
+            return 1+Math.min(insert,Math.min(delete,sub));
+        }
+
+    }
+}
