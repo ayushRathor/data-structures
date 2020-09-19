@@ -1,0 +1,54 @@
+
+public class Solution {
+
+
+    public static int editDistance(String s1, String s2){
+
+        /* Your class should be named Solution
+	 * Don't write main().
+	 * Don't read input, it is passed as function argument.
+	 * Return output and don't print it.
+	*/
+
+        int[][] memo=new int[s1.length()+1][s2.length()+1];
+        for(int i=0;i<=s1.length();i++)
+        {
+            for(int j=0;j<=s2.length();j++)
+            {
+                memo[i][j]=-1;
+            }
+        }
+        return editDistanceM(s1,s2,memo);
+    }
+    public static int editDistanceM(String s1,String s2,int[][] memo){
+
+        int m=s1.length();
+        int n=s2.length();
+
+        if(memo[m][n]!=-1)
+        {
+            return memo[m][n];
+        }
+        if(m==0 || n==0)
+        {
+            memo[m][n]=Math.max(m,n);
+            return memo[m][n];
+        }
+
+        if(s1.charAt(0)==s2.charAt(0))
+        {
+            memo[m][n]=editDistanceM(s1.substring(1),s2.substring(1),memo);
+            return memo[m][n];
+        }
+        else{
+            int insert=editDistanceM(s1.substring(1),s2,memo);
+            int delete=editDistanceM(s1,s2.substring(1),memo);
+            int sub=editDistanceM(s1.substring(1),s2.substring(1),memo);
+            memo[m][n]= 1+Math.min(insert,Math.min(delete,sub));
+        }
+
+        return memo[m][n];
+    }
+
+
+}
