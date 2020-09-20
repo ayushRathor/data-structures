@@ -1,0 +1,37 @@
+import java.util.*;
+public class Solution {
+
+   public static int allWays(int x, int n) {
+	   /* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+		*/
+       int nthroot=(int)Math.pow(x,1.0/n);
+       // System.out.println(nthroot);
+       ArrayList<Integer> base= new ArrayList();
+       for(int i=1;i<=nthroot;i++)
+       {
+           base.add(i);
+       }
+       
+       return allWays(x,n,base,0);
+	   
+    }
+    
+    public static int allWays(int x, int n,ArrayList<Integer> base,int i){
+        
+        if(x==0)
+        {
+            return 1;
+        }
+        if(i>=base.size())
+        {
+            return 0;
+        }
+        int in=allWays(x-(int)Math.pow(base.get(i),n),n,base,i+1);
+        int ex=allWays(x,n,base,i+1);
+        return in+ex;
+    }
+}
