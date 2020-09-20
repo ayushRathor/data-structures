@@ -1,0 +1,64 @@
+
+public class Solution {
+
+    public static int findMaxSquareWithAllZeros(int[][] input){
+
+        /* Your class should be named Solution.
+	 * Don't write main() function.
+	 * Don't read input, it is passed as function argument.
+	 * Return output and don't print it.
+	 * Taking input and printing output is handled automatically.
+	 */
+
+        int m=input.length;
+        int n=input[0].length;
+        int[][] res=new int[input.length][input[0].length];
+        //first row
+        int max=0;
+        for(int i=0;i<n;i++)
+        {
+            res[0][i]=input[0][i]==0?1:0;
+            if(max<res[0][i])
+            {
+                max=res[0][i];
+            }
+        }
+        //first colomn
+
+        for(int i=1;i<m;i++)
+        {
+            res[i][0]=input[i][0]==0?1:0;
+            if(max<res[i][0])
+            {
+                max=res[i][0];
+            }
+        }
+
+        for(int i=1;i<m;i++)
+        {
+            for(int j=1;j<n;j++)
+            {
+                if(input[i][j]==1)
+                {
+                    res[i][j]=0;
+                }
+                else
+                {
+                    res[i][j]=1+Math.min(res[i-1][j-1],Math.min(res[i-1][j],res[i][j-1]));
+                }
+                
+                // System.out.println(res[i][j]);
+                if(max<res[i][j])
+                {
+                    max=res[i][j];
+                }
+            }
+        }
+        
+        
+        return max;
+
+    }
+
+
+}
