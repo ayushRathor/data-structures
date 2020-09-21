@@ -1,0 +1,41 @@
+
+public class Solution {
+
+	
+	public static int mcm(int[] p){
+		
+	/* Your class should be named Solution
+	 * Don't write main().
+	 * Don't read input, it is passed as function argument.
+	 * Return output and don't print it.
+	 * Taking input and printing output is handled automatically.
+	*/
+        int[][] memo=new int[p.length][p.length];
+        return mcm(p,0,p.length-1,memo);
+	}
+
+    public static int mcm(int[]p,int s,int e,int[][] memo)
+    {
+        if(s==e ||s==e-1)
+        {
+            return 0;
+        }
+        if(memo[s][e]!=0)
+        {
+            return memo[s][e];
+        }
+        int min = Integer.MAX_VALUE;
+        for(int i=s+1;i<e;i++)
+        {
+            int res=mcm(p,s,i,memo)+mcm(p,i,e,memo)+p[s]*p[i]*p[e];
+            if(min>res)
+            {
+                min=res;
+            }
+        }
+        memo[s][e]=min;
+        return memo[s][e];
+    }
+
+	
+}
