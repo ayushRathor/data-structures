@@ -1,0 +1,14 @@
+
+public class solution {
+
+	public static int multiplyTwoIntegers(int m, int n){
+		// Write your code here
+	   return multiplyTwoIntegers(m,n,1);
+	}
+    public static int multiplyTwoIntegers(int m, int n,int count){
+        if(count==n){
+            return m;
+        }
+        return m+multiplyTwoIntegers(m,n,count+1);
+    }
+}
