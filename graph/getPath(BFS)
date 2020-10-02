@@ -1,0 +1,67 @@
+import java.util.Scanner;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int V = s.nextInt();
+        int E = s.nextInt();
+        int[][] edges=new int[V][V];
+        for(int i=0;i<E;i++)
+        {
+            int fv=s.nextInt();
+            int sv=s.nextInt();
+            edges[fv][sv]=1;
+            edges[sv][fv]=1;
+        }
+        int v1=s.nextInt();
+        int v2=s.nextInt();
+        getPath(edges,v1,v2);
+        /* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+    }
+
+    public static void getPath(int[][] edges,int v1,int v2)
+    {
+        boolean[] visited=new boolean[edges[0].length];
+        // ArrayList<Integer> path=new ArrayList()
+        Queue<Integer> q=new LinkedList<Integer>();
+        q.add(v1);
+        boolean terminate=false;
+        visited[v1]=true;
+        HashMap<Integer,Integer> map=new HashMap();
+        while(!q.isEmpty() && !terminate)
+        {
+            int front=q.poll();
+            for(int i=0;i<edges[0].length;i++)
+            {
+                if(!visited[i] && edges[front][i]==1)
+                {
+                    map.put(i,front);
+                    q.add(i);
+                    visited[i]=true;
+                    if(i==v2)
+                    {
+                        terminate=true;
+                        break;
+                    }
+                    
+                }
+            }
+        }
+
+        if(terminate)
+        {
+            System.out.print(v2+" ");
+            int i=v2;
+            while(i!=v1)
+            {
+                System.out.print(map.get(i)+" ");
+                    i=map.get(i);
+            }
+        }
+    }
+}
