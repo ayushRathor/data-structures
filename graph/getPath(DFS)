@@ -1,0 +1,64 @@
+import java.util.Scanner;
+import java.util.*;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		/* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+        int[][] edges=new int[V][V];
+        for(int i=0;i<E;i++){
+            int fv=s.nextInt();
+            int sv=s.nextInt();
+            edges[fv][sv]=1;
+            edges[sv][fv]=1;
+        }
+        int v1=s.nextInt();
+        int v2=s.nextInt();
+        getPath(edges,v1,v2);
+	}
+    public static void getPath(int[][] edges,int v1,int v2)
+    {
+        boolean[] visited=new boolean[edges[0].length];
+        ArrayList<Integer> path=new ArrayList();
+        getPath(edges,visited,path,v1,v2);
+        for(int i:path)
+        {
+            System.out.print(i+" ");
+        }
+    }
+    public static ArrayList<Integer> getPath(int[][] edges,boolean[] visited,ArrayList<Integer> path,int v1,int v2)
+    {
+        
+       visited[v1]=true;
+       if(v1==v2)
+       {
+           path.add(v1);
+           for(int i=0;i<visited.length;i++)
+           {
+               visited[i]=true;
+           }
+           return  path;
+       }
+       
+        for(int i=0;i<edges[0].length;i++)
+        {
+            if(edges[v1][i]==1 && !visited[i])
+            {
+                getPath(edges,visited,path,i,v2);
+            }
+        }
+        if(!path.isEmpty())
+        {
+            path.add(v1);
+        }
+        return path;
+    }
+    
+}
