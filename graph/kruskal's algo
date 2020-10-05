@@ -1,0 +1,80 @@
+import java.util.Scanner;
+import java.util.*;
+
+ class Edge implements Comparable<Edge>{
+    int v1,v2,w;
+    public Edge(int v1,int v2,int w)
+    {
+        this.v1=v1;
+        this.v2=v2;
+        this.w=w;
+    }
+    public int compareTo(Edge e)
+    {
+        return this.w-e.w;
+    }
+}
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+        Edge[] input=new Edge[E];
+        // Edge[] output=new Edge[V-1];
+        for(int i=0;i<E;i++)
+        {
+            int v1=s.nextInt();
+            int v2=s.nextInt();
+            int w=s.nextInt();
+            input[i]=new Edge(v1,v2,w);
+        }
+		/* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+        getMST(input,V);
+	}
+    public static void getMST(Edge[] input,int V){
+        Edge[] output=new Edge[V-1];
+        int[] parent=new int[V];
+        for(int j=0;j<V;j++)
+        {
+            parent[j]=j;
+        }
+        Arrays.sort(input);
+        int count=0;
+        int i=0;
+        while(count!=V-1)
+        {
+            int v1=input[i].v1;
+            int v2=input[i].v2;
+            int p1=getParent(v1,parent);
+            int p2=getParent(v2,parent);
+            if(p1!=p2)
+            {
+                // System.out.println(v1+"---"+v2);
+                parent[p1]=p2;
+                int inv1=Math.min(v1,v2);
+                int inv2=Math.max(v1,v2);
+                output[count]=new Edge(inv1,inv2,input[i].w);
+                count++;
+            }
+            i++;
+        }
+        for(int j=0;j<V-1;j++)
+        {
+            System.out.println(output[j].v1+" "+output[j].v2+" "+output[j].w);
+        }
+    }
+    
+    public static int getParent(int v,int[] parent)
+    {
+        int curr=parent[v];
+        while(v!=curr){
+            v=curr;
+            curr=parent[v];
+        }
+        return curr;      
+    } 
+}
