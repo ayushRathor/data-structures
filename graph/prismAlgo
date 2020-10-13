@@ -1,0 +1,73 @@
+import java.util.Scanner;
+import java.util.*;
+
+public class Solution {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+        int[][] edges=new int[V][V];
+        for(int i=0;i<E;i++)
+        {
+            int fv=s.nextInt();
+            int sv=s.nextInt();
+            int w=s.nextInt();
+            edges[fv][sv]=w;
+            edges[sv][fv]=w;
+        }
+        printMST(edges,V);
+		/* Write Your Code Here
+		 * Complete the Rest of the Program
+		 * You have to take input and print the output yourself
+		 */
+	}
+    public static int minWeightIndex(int[] weight,boolean[] visited){
+        int minVal=Integer.MAX_VALUE;
+        int index=0;
+        for(int i=1;i<weight.length;i++)
+        {
+            if(minVal>weight[i] && !visited[i])
+            {
+                minVal=weight[i];
+                index=i;
+            }
+        }
+        return index;
+    }
+    public static void printMST(int[][] edges, int v){
+        boolean[] visited=new  boolean[v];
+        int[] weight=new int[v];
+        int[] parent=new int[v];
+        Arrays.fill(weight,1,weight.length,Integer.MAX_VALUE);
+        Arrays.fill(parent,1,weight.length,-1);
+        for(int i=0;i<v;i++)
+        {
+            int minWindex=0;
+            if(i>0)
+            {
+                minWindex=minWeightIndex(weight,visited);
+            }
+            for(int j=0;j<v;j++)
+            {
+                if(edges[minWindex][j]>0 && !visited[j])
+                {
+                   
+                    if(weight[j]>edges[minWindex][j])
+                    {
+                        weight[j]=edges[minWindex][j];
+                        parent[j]=minWindex;
+                    }
+                }
+            }
+            visited[minWindex]=true;
+        }
+        for(int i=1;i<v;i++){
+            // System.out.println(i+" "+parent[i]);
+            int v1=Math.min(i,parent[i]);
+            int v2=Math.max(i,parent[i]);
+           System.out.println(v1+" "+v2+" "+weight[i]);
+        }
+        
+    }
+}
